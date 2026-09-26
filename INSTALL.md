@@ -55,7 +55,7 @@ Claude Code only. Inside Claude Code:
 /plugin install higgsfield@higgsfield
 ```
 
-Pulls the plugin manifest from `.claude-plugin/marketplace.json` and registers all eight skills, including `/higgsfield:brandkit`, `/higgsfield:youtube-thumbnail`, and `/higgsfield:websites`.
+Pulls the plugin manifest from `.claude-plugin/marketplace.json` and registers all eight skills, including `/higgsfield:higgsfield-brandkit`, `/higgsfield:higgsfield-youtube-thumbnail`, and `/higgsfield:higgsfield-websites`.
 
 ## Option 4 — Setup script
 
