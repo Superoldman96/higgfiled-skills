@@ -9,7 +9,7 @@ description: |
   "set up identity for video", "I want my face in generated images".
   Chain: train Soul (one-time, returns reference_id) → use in
   higgsfield-generate via `--soul-id <id>` with models like
-  `text2image_soul_v2` or `soul_cinema_studio`.
+  `text2image_soul_v2` or `soul_cinematic`.
   NOT for: one-shot face swaps (use higgsfield-generate with --image),
   named-character / non-photo avatars (use higgsfield-generate with prompt).
 argument-hint: "[name] [photo paths...]"
@@ -63,6 +63,8 @@ Once trained, pass to `higgsfield-generate`:
 higgsfield generate create text2image_soul_v2 --prompt "..." --soul-id <ref_id> --quality 2k --wait
 higgsfield generate create soul_cinematic --prompt "..." --soul-id <ref_id> --quality 2k --wait
 ```
+
+`--soul-id` is sent as the model's `custom_reference_id`. `text2image_soul_v2` and `soul_cinema_studio` also accept `--style_id <uuid>` for a curated Soul style preset; the CLI has no command that lists style ids, so pass one only when the user supplies it. On `text2image_soul_v2`, `--style_id` cannot be combined with `--image`.
 
 ## Listing existing Souls
 

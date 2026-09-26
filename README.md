@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Version](https://img.shields.io/badge/version-0.12.0-green.svg)](./VERSION)
-[![Skills](https://img.shields.io/badge/skills-9-blueviolet.svg)](#skills)
+[![Skills](https://img.shields.io/badge/skills-8-blueviolet.svg)](#skills)
 [![Discord](https://img.shields.io/badge/discord-join-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/higgsfield)
 
 AI agent skills for image/video generation and complete visual brand systems via [Higgsfield AI](https://higgsfield.ai), including Marketing Studio and Virality Predictor video scoring. Works with Claude Code, Cursor, Codex, and other AI coding agents that load Markdown-based skills.
@@ -58,7 +58,6 @@ More options in [INSTALL.md](./INSTALL.md). Agent-driven install (paste into you
 | [`higgsfield-websites`](./higgsfield-websites) | `/higgsfield:websites` | Build, edit, and deploy full-stack websites — React 19 + TanStack Start, server-rendered as one Cloudflare Worker with D1 / R2 / KV / Durable Objects / Containers. Create → get git repo access → edit locally → push → deploy preview/production, all via `higgsfield website …`. |
 | [`higgsfield-video-explainer`](./higgsfield-video-explainer) | `/higgsfield:video-explainer` | Create a narrated non-photoreal explainer as matched Seed Audio + Gemini Omni blocks, then assemble the final MP4 with `explainer_video`. |
 | [`higgsfield-youtube-thumbnail`](./higgsfield-youtube-thumbnail) | `/higgsfield:youtube-thumbnail` | Create truthful, high-impact YouTube thumbnails and vertical video covers with identity-preserving references, controlled variants, focused edits, and optional text-overlay guidance. |
-| [`higgsfield-game-generation`](./higgsfield-game-generation) | `/higgsfield:game-generation` | Plan, build, verify, and deploy playable browser games, or generate game-specific sprites, textures, rigged 3D assets, and audio. |
 
 The skills chain: train Soul → use the reference id in `generate` (including Marketing Studio jobs). `brandkit` chains Recraft, Seedream, GPT Image, and deterministic local tooling into one approval-aware identity system. `product-photoshoot` and `marketplace-cards` are self-contained — backend enhances prompts before submitting image jobs. `youtube-thumbnail` can follow any video workflow once its truthful topic and visual direction are known. `websites` chains with `generate` to embed bespoke hero images, video loops, and OG assets in the site.
 
@@ -97,7 +96,7 @@ The skills chain: train Soul → use the reference id in `generate` (including M
 
 | What you want | Skill | Note |
 |---|---|---|
-| Generate any image / video from a prompt | `higgsfield-generate` | Prefers `gpt_image_2_5` / `nano_banana_2` for images and SOTA `seedance_2_5` for video by default |
+| Generate any image / video from a prompt | `higgsfield-generate` | Prefers `gpt_image_2_5` / `nano_banana_flash` for images and SOTA `seedance_2_5` for video by default |
 | Generate audio from a prompt | `higgsfield-generate` | Prefers `seed_audio` by default |
 | Image with my own face | `higgsfield-soul-id` then `higgsfield-generate` | One-time training, then `--soul-id` |
 | Branded product photo (studio / lifestyle / Pinterest / hero / ad pack) | `higgsfield-product-photoshoot` | Mode-specific prompt enhancer + `gpt_image_2` |
@@ -106,11 +105,11 @@ The skills chain: train Soul → use the reference id in `generate` (including M
 | Branded ad video / UGC / unboxing / TV spot | `higgsfield-generate` | Marketing Studio mode with avatars + products + optional hooks/settings |
 | Analyze a video's hook / attention / virality potential | `higgsfield-generate` | Uses Virality Predictor (`brain_activity`) with `--video`; returns score metrics plus an Open report link |
 | Train a custom face identity | `higgsfield-soul-id` | 5–20 photos, returns `reference_id` |
-| Image-to-video animation | `higgsfield-generate` | Prefer `seedance_2_0` with `--start-image`; use `kling3_0` as lower-cost fallback |
+| Image-to-video animation | `higgsfield-generate` | Prefer `seedance_2_5` with `--mode omni_reference --start-image`; `kling3_0_turbo` when the user asks for cheaper |
 | Build / edit / deploy a website, web app, landing page, or dashboard | `higgsfield-websites` | Full-stack React 19 + TanStack Start on Cloudflare; `higgsfield website create/repo-access/deploy` |
 | Create a narrated explainer from a topic or document | `higgsfield-video-explainer` | Resolves a live style, generates audio then video per block, and assembles with `explainer_video` |
 | Create a YouTube thumbnail or Shorts/Instagram video cover | `higgsfield-youtube-thumbnail` | Nano Banana Pro 4K main render, optional face/logo references, controlled variants, and Seedream tweaks |
-| Build and deploy a playable browser game | `higgsfield-game-generation` | Owns game design, assets, implementation, QA, deploy, and optional marketplace publish |
+| Build and deploy a playable browser game | `higgsfield-websites` | `--type game`: game design, assets, implementation, QA, deploy, and optional publish |
 
 ## License
 
