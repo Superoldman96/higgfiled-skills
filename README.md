@@ -1,7 +1,7 @@
 # Higgsfield AI Skills
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-0.12.0-green.svg)](./VERSION)
+[![Version](https://img.shields.io/badge/version-0.13.0-green.svg)](./VERSION)
 [![Skills](https://img.shields.io/badge/skills-8-blueviolet.svg)](#skills)
 [![Discord](https://img.shields.io/badge/discord-join-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/higgsfield)
 
@@ -48,16 +48,16 @@ More options in [INSTALL.md](./INSTALL.md). Agent-driven install (paste into you
 
 ## Skills
 
-| Skill | Invoke | Description |
+| Skill | Invoke (Claude Code) | Description |
 |---|---|---|
-| [`higgsfield-generate`](./higgsfield-generate) | `/higgsfield:generate` | Image, video, 3D, and audio generation across 30+ models (Nano Banana 2, Soul V2, Veo 3.1, Kling 3.0, Seedance 2.5, Seed Audio 1.0, Flux 2, GPT Image 2.5, …), plus Marketing Studio for branded ads with avatars/products/hooks/settings and Virality Predictor scoring for finished videos. |
-| [`higgsfield-soul-id`](./higgsfield-soul-id) | `/higgsfield:soul-id` | Train a Soul Character — a reusable, face-faithful identity model. Returns a `reference_id` consumable by Soul-aware generation. |
-| [`higgsfield-product-photoshoot`](./higgsfield-product-photoshoot) | `/higgsfield:product-photoshoot` | Brand-quality product imagery with mode-specific prompt enhancement. 10 modes (studio, lifestyle, Pinterest, hero banner, ad packs, virtual try-on, …) backed by `gpt_image_2`. |
-| [`higgsfield-brandkit`](./higgsfield-brandkit) | `/higgsfield:brandkit` | Create or extend a complete visual identity: palettes, editable SVG logo marks, typography, mockups, social graphics, packaging, signage, merchandise, decks, and canonical PPTX/PDF brandbooks. |
-| [`higgsfield-marketplace-cards`](./higgsfield-marketplace-cards) | `/higgsfield:marketplace-cards` | Marketplace product cards: compliant main image, secondary product images, and A+ style modules via backend prompt enhancement. |
-| [`higgsfield-websites`](./higgsfield-websites) | `/higgsfield:websites` | Build, edit, and deploy full-stack websites — React 19 + TanStack Start, server-rendered as one Cloudflare Worker with D1 / R2 / KV / Durable Objects / Containers. Create → get git repo access → edit locally → push → deploy preview/production, all via `higgsfield website …`. |
-| [`higgsfield-video-explainer`](./higgsfield-video-explainer) | `/higgsfield:video-explainer` | Create a narrated non-photoreal explainer as matched Seed Audio + Gemini Omni blocks, then assemble the final MP4 with `explainer_video`. |
-| [`higgsfield-youtube-thumbnail`](./higgsfield-youtube-thumbnail) | `/higgsfield:youtube-thumbnail` | Create truthful, high-impact YouTube thumbnails and vertical video covers with identity-preserving references, controlled variants, focused edits, and optional text-overlay guidance. |
+| [`higgsfield-generate`](./higgsfield-generate) | `/higgsfield:higgsfield-generate` | Image, video, 3D, and audio generation across 30+ models (Nano Banana 2, Soul V2, Veo 3.1, Kling 3.0, Seedance 2.5, Seed Audio 1.0, Flux 2, GPT Image 2.5, …), plus Marketing Studio for branded ads with avatars/products/hooks/settings and Virality Predictor scoring for finished videos. |
+| [`higgsfield-soul-id`](./higgsfield-soul-id) | `/higgsfield:higgsfield-soul-id` | Train a Soul Character — a reusable, face-faithful identity model. Returns a `reference_id` consumable by Soul-aware generation. |
+| [`higgsfield-product-photoshoot`](./higgsfield-product-photoshoot) | `/higgsfield:higgsfield-product-photoshoot` | Brand-quality product imagery with mode-specific prompt enhancement. 10 modes (studio, lifestyle, Pinterest, hero banner, ad packs, virtual try-on, …) backed by `gpt_image_2`. |
+| [`higgsfield-brandkit`](./higgsfield-brandkit) | `/higgsfield:higgsfield-brandkit` | Create or extend a complete visual identity: palettes, editable SVG logo marks, typography, mockups, social graphics, packaging, signage, merchandise, decks, and canonical PPTX/PDF brandbooks. |
+| [`higgsfield-marketplace-cards`](./higgsfield-marketplace-cards) | `/higgsfield:higgsfield-marketplace-cards` | Marketplace product cards: compliant main image, secondary product images, and A+ style modules via backend prompt enhancement. |
+| [`higgsfield-websites`](./higgsfield-websites) | `/higgsfield:higgsfield-websites` | Build, edit, and deploy full-stack websites — React 19 + TanStack Start, server-rendered as one Cloudflare Worker with D1 / R2 / KV / Durable Objects / Containers. Create → get git repo access → edit locally → push → deploy preview/production, all via `higgsfield website …`. |
+| [`higgsfield-video-explainer`](./higgsfield-video-explainer) | `/higgsfield:higgsfield-video-explainer` | Create a narrated non-photoreal explainer as matched Seed Audio + Gemini Omni blocks, then assemble the final MP4 with `explainer_video`. |
+| [`higgsfield-youtube-thumbnail`](./higgsfield-youtube-thumbnail) | `/higgsfield:higgsfield-youtube-thumbnail` | Create truthful, high-impact YouTube thumbnails and vertical video covers with identity-preserving references, controlled variants, focused edits, and optional text-overlay guidance. |
 
 The skills chain: train Soul → use the reference id in `generate` (including Marketing Studio jobs). `brandkit` chains Recraft, Seedream, GPT Image, and deterministic local tooling into one approval-aware identity system. `product-photoshoot` and `marketplace-cards` are self-contained — backend enhances prompts before submitting image jobs. `youtube-thumbnail` can follow any video workflow once its truthful topic and visual direction are known. `websites` chains with `generate` to embed bespoke hero images, video loops, and OG assets in the site.
 
