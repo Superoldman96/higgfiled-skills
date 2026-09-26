@@ -4,8 +4,8 @@ name: higgsfield-generate
 description: |
   Generate images/videos/3D assets/audio via Higgsfield AI. Defaults:
   GPT Image 2.5 for image/design/text, Seedance 2.5 for
-  video, Nano Banana 2/Lite/Pro for character/reference
-  images, Marketing Studio for ads, Seed Audio 1.0 for audio.
+  video, Nano Banana 2 for cartoon characters, Marketing
+  Studio for ads, Seed Audio 1.0 for audio.
   Use when: "generate an image", "make a video", "animate
   this photo", "image-to-video", "edit/stylize/remix this
   image", "reframe this video", "edit this video from a
@@ -66,45 +66,39 @@ If the user says "analyze this video", "score this ad", "evaluate the hook", or 
 
 ## Workflow — generic generation
 
-1. **Pick a model.** Start with the core defaults unless the brief clearly needs a specialist:
+1. **Pick a model.** Start with the core defaults:
 
    - **GPT Image 2.5** → default image model for high-fidelity general generation, graphic design, UI, banners, typography, and on-image text.
    - **Seedance 2.5** (`seedance_2_5`) → SOTA default video model for serious motion, cinematic clips, multi-shot work, and image-to-video. Supports 4–30s output up to 1080p; use Seedance 2.0 when native 4K is required.
-   - **Nano Banana 2/Lite/Pro** → default for character, cartoon, stylized, and reference-driven image work; use Lite for speed/cost, Pro for harder briefs.
+   - **Nano Banana 2** (`nano_banana_flash`) → cartoon and illustrated characters.
    - **Marketing Studio** → default for ads, UGC, product demos, unboxing, TV spots, presenter videos, and brand/product workflows.
    - **Seed Audio 1.0** → default audio model for text-to-audio, voice, sound effects, ambience, foley, and music-like audio unless the user names Sonilo/Mirelo.
+
+   Only the models below are picked without being asked. Any other model is used only when the user names it or explicitly asks for what it offers (cheaper, faster, a specific look); see `references/model-catalog.md`. A model the user names stays in use for follow-ups on the same work.
 
    **Image:**
    - Complete brand identity, logo system, palette, typography, brandbook, packaging system, signage, or coordinated branded asset suite → use `higgsfield-brandkit` instead.
    - YouTube thumbnail, Shorts cover, or Instagram video cover → use `higgsfield-youtube-thumbnail` instead.
    - Brand product visual (Pinterest pin, lifestyle, hero banner, ad pack, virtual try-on) → use `higgsfield-product-photoshoot` instead. NOT this skill.
-   - Generated product concept / packaging / can / bottle with brand name or label text → GPT Image 2.5.
    - Branded ad image with avatar + product (Marketing Studio shape) → Marketing Studio Image (see Marketing Studio below)
-   - Aesthetic UGC / fashion editorial / lifestyle character → Soul 2.0
-   - Cinematic still frame → Soul Cinema
-   - Soul Cast (`soul_cast`) only when the user names it; it is text-only and `16:9` only
-   - Locations / environments / no-people scenes → Soul Location (best in class)
+   - Soul Character (reference id from `higgsfield-soul-id`) → Soul 2.0 for stills, Soul Cinema (`soul_cinematic`) for cinematic
+   - New original person — UGC, editorial, fashion, lifestyle → Soul 2.0
+   - Cinematic still frame → Soul Cinema (`soul_cinematic`)
+   - Character sheet, one-shot face from reference photos, or face edit on a real photo → Seedream 5.0 Pro (`seedream_v5_pro`)
+   - Locations / environments / no-people scenes → Soul Location
    - Logo, icon, vector-like illustration, brand mark, controlled-palette graphic → Recraft V4.1 (`recraft_v4_1`, often with `--model_type vector`)
-   - One-shot face or character sheet from reference photos → Seedream 5.0 Pro (`seedream_v5_pro`)
-   - Face edit + complex scene swap → Seedream 5.0 Pro; Seedream 4.5 when the user names it
-   - Soul Character (reference id from `higgsfield-soul-id`) → Soul 2.0 for stills, Soul Cinema for cinematic
-   - Character or cartoon-style work → Nano Banana 2 (`nano_banana_flash`); use Nano Banana 2 Lite (`nano_banana_2_lite`) for fast/simple reference edits, step up to Nano Banana Pro (`nano_banana_pro`) on hard cases. The id `nano_banana_2` is an alias for Nano Banana Pro, not Nano Banana 2
-   - Fast and cheap iteration → Z Image
-   - **Default for everything else → GPT Image 2.5.** Graphic design, UI, banners, typography, and high-fidelity general generation.
+   - Cartoon or illustrated characters, heavily textured photos → Nano Banana 2 (`nano_banana_flash`). The id `nano_banana_2` is an alias for Nano Banana Pro, not Nano Banana 2
+   - **Default for everything else → GPT Image 2.5.** Graphic design, UI, banners, typography, product concepts, editing, and high-fidelity general generation.
+   - User asks for cheaper or faster → Nano Banana 2 Lite (`nano_banana_2_lite`) for reference edits, Z Image for drafts.
 
    **Video:**
    - Complete narrated explainer from a topic, story, or document → use `higgsfield-video-explainer`, not generic video generation.
    - All advertising / commercial / branded ad video → Marketing Studio (see Marketing Studio below)
    - Edit existing video from sketch/timestamp, or reframe to another aspect ratio → workflow (`draw_to_video` or `reframe`), not a model. See `references/workflows.md`.
-   - **Default all-purpose serious video (multi-shot, consistent identity, motion-heavy, image-to-video, 4–30s requests) → Seedance 2.5.** SOTA. Do not downgrade to Seedance 1.5 just because its duration enum is easier to read; validate Seedance 2.5 first.
-   - Single-plane scene without strong dynamics, lower-cost option → Kling 3.0; if the user explicitly asks for Turbo, faster, or lower-cost Kling output → Kling 3.0 Turbo (`kling3_0_turbo`)
-   - Cheap clean shot without cuts, only when the user asks for cheaper/budget output → Seedance 1.5 Pro
-   - Cinema-grade highest fidelity → Cinema Studio 4.0 (`cinematic_studio_video_4_0`)
-   - Cheap with strong physics, no audio needed → Minimax Hailuo
-   - Fast batch / volume → Veo 3.1 Lite
-   - Bold/stylized image-to-video from a required start image → Grok Video 1.5 (`grok_video_v15`). Requires one `--start-image` or `--image`, duration 2–15s, resolution `480p`, `720p`, or `1080p` (`1080p` is not available with reference media).
-   - Multimodal reference-to-video with up to 7 images or one video reference → Gemini Omni Flash (`gemini_omni`); keep Seedance 2.5 as the default serious-video pick.
-   - Reference-driven generation, editing an existing video, or extending one → **Seedance 2.5** (`seedance_2_5`), whose modes are `t2v` / `omni_reference` / `video_edit` / `video_extension` and which takes image/video/audio reference arrays. Use `omni_reference` for reference inputs, including start/end frames; `t2v` accepts no media. Supports up to **1080p**; use Seedance 2.0 when native 4K is required.
+   - **Default for everything else → Seedance 2.5** (`seedance_2_5`): multi-shot, consistent identity, motion-heavy, image-to-video, editing, extension, 4–30s. Modes `t2v` / `omni_reference` / `video_edit` / `video_extension`; use `omni_reference` for reference inputs, including start/end frames; `t2v` accepts no media. Up to 1080p. Do not downgrade because another model's schema looks simpler.
+   - User asks for 4K → Seedance 2.0 (`seedance_2_0`); say why you switched.
+   - User asks for cheaper or faster → Kling 3.0 Turbo (`kling3_0_turbo`), Veo 3.1 Lite, or Seedance 1.5 Pro.
+   - Named by the user → use it, e.g. Cinema Studio 4.0 (`cinematic_studio_video_4_0`), Kling 3.0, Veo 3.1, Gemini Omni Flash (`gemini_omni`), or Grok Video 1.5 (`grok_video_v15`: one `--start-image` or `--image`, duration 2–15s, up to `1080p` without reference media).
 
    **Video analysis:**
    - Rate a finished video's hook, virality potential, attention, retention, or distraction risk → Virality Predictor (`brain_activity`). This is a video analysis model that returns a text score/report, not a generated media asset.

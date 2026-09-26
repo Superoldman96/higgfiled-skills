@@ -14,9 +14,8 @@ These exist to be run by a human (or by another agent acting as the user) in a f
 
 **Expected behavior:**
 
-- Picks `nano_banana_flash`, `flux_2`, or another photorealistic-default model.
+- Picks `gpt_image_2_5` (default), or a faster option (`z_image`, `nano_banana_2_lite`) because the user said "quick".
 - Does NOT pick a Soul model (no face mentioned).
-- Does NOT pick `gpt_image_2` (overkill for "quick").
 - Submits via `higgsfield generate create <model> --prompt "..." --wait` (one-shot create+poll, no separate `wait` step).
 - Stays silent until done (no "checking status..." spam).
 - Delivers ONE URL with a short summary.
@@ -38,7 +37,7 @@ These exist to be run by a human (or by another agent acting as the user) in a f
 
 **Expected behavior:**
 
-- Picks `kling3_0` (default for image-to-video) or `seedance_2_0`.
+- Picks `seedance_2_5` (default for image-to-video) with `--mode omni_reference`.
 - Uses `--start-image still.jpg`.
 - Uses motion verbs in the prompt ("pulls back", "ambient motion") not redescribed scene.
 - `--duration 5`.
@@ -172,7 +171,7 @@ These exist to be run by a human (or by another agent acting as the user) in a f
 - Detects user_language = `ru`.
 - Replies in Russian for status, questions, summary.
 - Keeps technical flags English (`--model nano_banana_flash`, `--aspect_ratio 16:9`).
-- Picks `nano_banana_flash` or `flux_2`.
+- Picks `gpt_image_2_5` (default).
 
 **Score:**
 
