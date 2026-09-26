@@ -253,19 +253,22 @@ Build a small browser game where a robot collects batteries while avoiding drone
 
 **What the agent does:**
 
-1. Uses `higgsfield-game-generation` to lock the game profile, STYLE FORMULA, and `design/assets.csv`.
-2. Generates the declared assets and builds `index.html` plus `logic.js`.
-3. Runs the game locally and verifies the complete loop on keyboard and touch.
-4. Packages and deploys:
+1. Uses `higgsfield-websites` with `--type game` to lock the game profile, STYLE FORMULA, and `design/assets.csv`.
+2. Creates the game:
 
    ```bash
-   higgsfield game deploy ./game.zip \
-     --title "Battery Run" \
-     --description "Collect batteries and dodge patrol drones." \
-     --json
+   higgsfield website create --type game --category arcade --subdomain battery-run
    ```
 
-Marketplace publication is separate and happens only when the user asks for it.
+3. Generates the declared assets and implements the game in `app/src/logic.js`.
+4. Runs the game locally and verifies the complete loop on keyboard and touch.
+5. Pushes and deploys:
+
+   ```bash
+   higgsfield website deploy <website_id>
+   ```
+
+Publishing is separate (`higgsfield website publish`) and happens only when the user asks for it.
 
 ---
 
@@ -277,7 +280,7 @@ Marketplace publication is separate and happens only when the user asks for it.
 | Generate paid-social ads from a URL | #2 UGC Ad Batch | `higgsfield-generate` (Marketing Studio) |
 | Async team updates without recording | #3 Founder Video | `higgsfield-soul-id` → `higgsfield-generate` |
 | Turn a topic or document into a narrated explainer | #4 Narrated Explainer | `higgsfield-video-explainer` |
-| Build and deploy a playable browser game | #5 Browser Game | `higgsfield-game-generation` |
+| Build and deploy a playable browser game | #5 Browser Game | `higgsfield-websites` (`--type game`) |
 
 ## Patterns these recipes share
 

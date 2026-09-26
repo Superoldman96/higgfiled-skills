@@ -19,7 +19,7 @@ description: |
   higgsfield-brandkit), photoshoots, cards, YouTube thumbnails
   (use higgsfield-youtube-thumbnail), explainers (use
   higgsfield-video-explainer), playable games/assets (use
-  higgsfield-game-generation), or TTS.
+  higgsfield-websites), or TTS.
 argument-hint: "[prompt-or-analysis-request] [--model <name>] [--image|--video <path-or-id>]"
 allowed-tools: Bash
 ---
@@ -82,12 +82,13 @@ If the user says "analyze this video", "score this ad", "evaluate the hook", or 
    - Branded ad image with avatar + product (Marketing Studio shape) → Marketing Studio Image (see Marketing Studio below)
    - Aesthetic UGC / fashion editorial / lifestyle character → Soul 2.0
    - Cinematic still frame → Soul Cinema
-   - Highly characterful creative persona (text-only, distinctive) → Soul Cast
+   - Soul Cast (`soul_cast`) only when the user names it; it is text-only and `16:9` only
    - Locations / environments / no-people scenes → Soul Location (best in class)
    - Logo, icon, vector-like illustration, brand mark, controlled-palette graphic → Recraft V4.1 (`recraft_v4_1`, often with `--model_type vector`)
-   - Face edit + complex scene swap → Seedream 4.5
+   - One-shot face or character sheet from reference photos → Seedream 5.0 Pro (`seedream_v5_pro`)
+   - Face edit + complex scene swap → Seedream 5.0 Pro; Seedream 4.5 when the user names it
    - Soul Character (reference id from `higgsfield-soul-id`) → Soul 2.0 for stills, Soul Cinema for cinematic
-   - Character or cartoon-style work → Nano Banana 2; use Nano Banana 2 Lite (`nano_banana_2_lite`) for fast/simple reference edits, step up to Nano Banana Pro on hard cases
+   - Character or cartoon-style work → Nano Banana 2 (`nano_banana_flash`); use Nano Banana 2 Lite (`nano_banana_2_lite`) for fast/simple reference edits, step up to Nano Banana Pro (`nano_banana_pro`) on hard cases. The id `nano_banana_2` is an alias for Nano Banana Pro, not Nano Banana 2
    - Fast and cheap iteration → Z Image
    - **Default for everything else → GPT Image 2.5.** Graphic design, UI, banners, typography, and high-fidelity general generation.
 
@@ -98,10 +99,10 @@ If the user says "analyze this video", "score this ad", "evaluate the hook", or 
    - **Default all-purpose serious video (multi-shot, consistent identity, motion-heavy, image-to-video, 4–30s requests) → Seedance 2.5.** SOTA. Do not downgrade to Seedance 1.5 just because its duration enum is easier to read; validate Seedance 2.5 first.
    - Single-plane scene without strong dynamics, lower-cost option → Kling 3.0; if the user explicitly asks for Turbo, faster, or lower-cost Kling output → Kling 3.0 Turbo (`kling3_0_turbo`)
    - Cheap clean shot without cuts, only when the user asks for cheaper/budget output → Seedance 1.5 Pro
-   - Cinema-grade highest fidelity → Cinema Studio Video 3.0
+   - Cinema-grade highest fidelity → Cinema Studio 4.0 (`cinematic_studio_video_4_0`)
    - Cheap with strong physics, no audio needed → Minimax Hailuo
    - Fast batch / volume → Veo 3.1 Lite
-   - Bold/stylized image-to-video from a required start image → Grok Video 1.5 (`grok_video_v15`). Requires one `--start-image` or `--image`, duration 2–15s, resolution `480p` or `720p`.
+   - Bold/stylized image-to-video from a required start image → Grok Video 1.5 (`grok_video_v15`). Requires one `--start-image` or `--image`, duration 2–15s, resolution `480p`, `720p`, or `1080p` (`1080p` is not available with reference media).
    - Multimodal reference-to-video with up to 7 images or one video reference → Gemini Omni Flash (`gemini_omni`); keep Seedance 2.5 as the default serious-video pick.
    - Reference-driven generation, editing an existing video, or extending one → **Seedance 2.5** (`seedance_2_5`), whose modes are `t2v` / `omni_reference` / `video_edit` / `video_extension` and which takes image/video/audio reference arrays. Use `omni_reference` for reference inputs, including start/end frames; `t2v` accepts no media. Supports up to **1080p**; use Seedance 2.0 when native 4K is required.
 
@@ -109,7 +110,7 @@ If the user says "analyze this video", "score this ad", "evaluate the hook", or 
    - Rate a finished video's hook, virality potential, attention, retention, or distraction risk → Virality Predictor (`brain_activity`). This is a video analysis model that returns a text score/report, not a generated media asset.
 
    **3D:**
-   - A 3D asset within a playable game or game-wide asset system → use `higgsfield-game-generation`.
+   - A 3D asset within a playable game or game-wide asset system → use `higgsfield-websites` (game product type).
    - Create an actual 3D mesh/model/GLB from one or more object/product reference images → Multi-Image to 3D (`multi_image_to_3d`). Pass 1–4 images with repeated `--image`; use `--should_texture true` when the asset needs texture. If the user only asks for a 3D-rendered picture, use an image model instead.
 
    **Audio:**
@@ -148,7 +149,7 @@ Flags pass through to model schema. Use `higgsfield model get <jst>` to discover
 
 ```bash
 higgsfield generate create gpt_image_2_5 --prompt "neon city at dusk" --aspect_ratio 16:9 --resolution 2k --wait
-higgsfield generate create nano_banana_2 --prompt "anime character concept, expressive pose" --image ./ref.png --wait
+higgsfield generate create nano_banana_flash --prompt "anime character concept, expressive pose" --image ./ref.png --wait
 higgsfield generate create seedance_2_5 --prompt "camera dollies in" --mode omni_reference --start-image ./first.png --duration 12 --resolution 1080p --wait
 higgsfield generate create grok_video_v15 --prompt "cinematic handheld shot, neon rainy street" --start-image ./image.png --duration 5 --resolution 720p --wait
 higgsfield generate create text2image_soul_v2 --prompt "..." --soul-id <soul_ref_id> --quality 2k --wait
@@ -164,6 +165,8 @@ For machine-readable output (chained pipelines, agent context), add `--json`. Wi
 Stdin prompt: `echo "..." | higgsfield generate create z_image --wait`.
 
 Soul image quality: for `text2image_soul_v2` and `soul_cinematic`, pass `--quality 1.5k` or `--quality 2k`. These are UI-facing tiers; the backend maps them to `720p`/`1080p` and model-specific dimensions from the selected `--aspect_ratio`. `soul_location` has no quality selector; it uses fixed dimensions per aspect ratio.
+
+Soul style presets: `text2image_soul_v2` and `soul_cinema_studio` accept `--style_id <uuid>`. The CLI has no command to list style ids, so pass one only when the user supplies it. On `text2image_soul_v2`, `--style_id` cannot be combined with an image reference.
 
 ## Marketing Studio
 
@@ -239,7 +242,7 @@ higgsfield marketing-studio ad-formats list --json
    ```
    Add `--hook_id <hook_id>` and/or `--setting_id <setting_id>` when a setup hook/setting was selected.
    `product_ids` and `avatars` are JSON arrays; pass them via `@/path/to/file.json`. Do not pass a bare UUID to `--product_ids`.
-   Resolution is `480p` or `720p`. Aspect ratio is one of `auto`/`21:9`/`16:9`/`4:3`/`1:1`/`3:4`/`9:16`. `--generate-audio true` is supported here (unlike `seedance_2_0`). `--wait` blocks until done; bump `--wait-timeout 30m` for longer ad runs.
+   Resolution is `480p`, `720p`, or `1080p`. Aspect ratio is one of `auto`/`21:9`/`16:9`/`4:3`/`1:1`/`3:4`/`9:16`. `--generate-audio true` is supported here (default `false`). `--wait` blocks until done; bump `--wait-timeout 30m` for longer ad runs.
 6. **Deliver.** URL + one-line summary (mode, duration).
 
 ### Click-to-Ad shortcut (URL-driven)
