@@ -64,7 +64,7 @@ higgsfield generate create text2image_soul_v2 --prompt "..." --soul-id <ref_id> 
 higgsfield generate create soul_cinematic --prompt "..." --soul-id <ref_id> --quality 2k --wait
 ```
 
-`--soul-id` is sent as the model's `custom_reference_id`. `text2image_soul_v2` and `soul_cinema_studio` also accept `--style_id <uuid>` for a curated Soul style preset; the CLI has no command that lists style ids, so pass one only when the user supplies it. On `text2image_soul_v2`, `--style_id` cannot be combined with `--image`.
+`--soul-id` is sent as the model's `custom_reference_id`. For a curated Soul style, list styles with `higgsfield preset list soul-v2` and pass the chosen id as `--style_id` on `text2image_soul_v2`. `--style_id` cannot be combined with `--image`.
 
 ## Listing existing Souls
 

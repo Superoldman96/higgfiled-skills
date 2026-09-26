@@ -160,7 +160,7 @@ Stdin prompt: `echo "..." | higgsfield generate create z_image --wait`.
 
 Soul image quality: for `text2image_soul_v2` and `soul_cinematic`, pass `--quality 1.5k` or `--quality 2k`. These are UI-facing tiers; the backend maps them to `720p`/`1080p` and model-specific dimensions from the selected `--aspect_ratio`. `soul_location` has no quality selector; it uses fixed dimensions per aspect ratio.
 
-Soul style presets: `text2image_soul_v2` and `soul_cinema_studio` accept `--style_id <uuid>`. The CLI has no command to list style ids, so pass one only when the user supplies it. On `text2image_soul_v2`, `--style_id` cannot be combined with an image reference.
+Soul style presets: `text2image_soul_v2` accepts `--style_id <uuid>`; list curated styles with `higgsfield preset list soul-v2` and pass the chosen id. `--style_id` combines with `--soul-id` but not with an image reference. `soul_cinema_studio` also accepts `--style_id`.
 
 ## Marketing Studio
 

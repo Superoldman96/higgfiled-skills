@@ -20,7 +20,7 @@ Preferred defaults for examples and quick-start guidance in this repo:
 | Nano Banana 2 Lite | Google | **Lightweight Nano Banana 2.** Fast reference-driven image generation and edits when the brief is simple or cost/speed matters more than Pro-level fidelity. Supports up to 14 image references. |
 | Nano Banana Pro (`nano_banana_pro`; alias `nano_banana_2`) | Google | **Top-tier Nano Banana.** Same canvas as Nano Banana 2 with extra fidelity and accuracy on harder briefs. Use when the user names it. |
 | Nano Banana | Google | Reliable, budget-friendly entry in the Nano Banana family — picks up the same realistic look at a lighter price point. |
-| Higgsfield Soul 2.0 | Higgsfield | **Aesthetic UGC, fashion editorial, character generation.** When the brief leans editorial, lifestyle, or "looks like a magazine cover". Soul-aware (accepts a Soul Character reference). |
+| Higgsfield Soul 2.0 | Higgsfield | **Aesthetic UGC, fashion editorial, character generation.** When the brief leans editorial, lifestyle, or "looks like a magazine cover". Soul-aware (accepts a Soul Character reference). Curated styles: `higgsfield preset list soul-v2`, then `--style_id <id>` (not with an image reference). |
 | Soul Cinema (`soul_cinematic`) | Higgsfield | **Cinematic stills, film-grade lighting.** The pick when the user asks for "cinematic" or wants concept-art mood. |
 | Soul Cinema Studio (`soul_cinema_studio`) | Higgsfield | Cinematic Soul stills with optional `style_id` presets and `enhance_prompt`. A separate model from `soul_cinematic`, with different params. |
 | Soul Cast | Higgsfield | **Distinctive, characterful personas.** Use only when the user names it. Text-only (no reference image), `16:9` only. |
